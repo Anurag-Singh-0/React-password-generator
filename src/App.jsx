@@ -6,7 +6,6 @@ function App() {
   const [specialChar, setSpecialChar] = useState(false);
   const [password, setPassword] = useState("");
 
-  //useRef Hook
   const passwordRef = useRef(null);
 
   const generatePassword = useCallback(() => {
@@ -37,70 +36,84 @@ function App() {
     generatePassword();
   }, [length, numberAllowed, specialChar, generatePassword]);
 
+
   return (
-    <div>
-      <h1 className="text-4xl text-center font-semibold uppercase mt-10 text-black">
+    <div className="min-h-screen bg-[cornflowerblue] flex flex-col pt-8">
+      <h1 className="text-3xl sm:text-5xl text-center font-semibold uppercase mt-8 sm:mt-10 text-white">
         Password Generator
       </h1>
 
-      <div className="w-full bg-white max-w-2xl mx-auto m-8 p-5 rounded-lg">
-        <div className="w-full p-2 flex justify-between items-center">
+      <div className="w-full bg-white max-w-lg sm:max-w-2xl mx-auto my-6 sm:my-8 p-4 sm:p-8 rounded-lg shadow-2xl">
+        {/* Password input and copy button */}
+        <div className="w-full flex flex-col sm:flex-row gap-2 sm:gap-0 p-2 justify-between items-stretch sm:items-center">
           <input
             type="text"
             placeholder="Password"
-            className="w-full p-2 rounded-l-lg border-1 border-gray-300 outline-0"
+            className="w-full p-2 rounded-t-lg sm:rounded-l-lg sm:rounded-tr-none border border-gray-300 outline-0 text-base sm:text-lg"
             value={password}
-            onChange={(e) => {
-              e.target.value;
-            }}
             readOnly
             ref={passwordRef}
           />
           <button
-            className="border-0 bg-[rebeccapurple] px-3.5 py-2.5 rounded-r-lg text-white cursor-pointer active:bg-[rebeccapurple]/80 duration-100"
+            className="border-0 bg-[rebeccapurple] px-4 py-2 rounded-b-lg sm:rounded-r-lg sm:rounded-bl-none text-white cursor-pointer active:bg-[rebeccapurple]/80 duration-100 text-base sm:text-lg"
             onClick={copyText}
           >
             Copy
           </button>
         </div>
 
-        <div className="flex justify-between px-5 py-3">
-          <input
-            type="range"
-            min={5}
-            max={50}
-            value={length}
-            className="cursor-pointer"
-            onChange={(e) => {
-              setLength(e.target.value);
-            }}
-          />
-          <label>Length: {length}</label>
-          <div className="flex gap-3 uppercase">
-            <label htmlFor="inputNumber">Numbers</label>
+        {/* Controls */}
+        <div className="flex flex-col sm:flex-row sm:justify-between gap-4 px-2 sm:px-5 py-3">
+          {/* Range and Length label together always */}
+          <div className="flex flex-row items-center gap-2 w-full sm:w-auto">
             <input
-              type="checkbox"
-              defaultChecked={numberAllowed}
-              id="inputNumber"
-              onChange={() => {
-                setNumberAllowed((prev) => !prev);
+              type="range"
+              min={5}
+              max={50}
+              value={length}
+              className="cursor-pointer w-full sm:w-40"
+              onChange={(e) => {
+                setLength(e.target.value);
               }}
             />
-
-            <label htmlFor="specialChar">Special Character</label>
-            <input
-              type="checkbox"
-              defaultChecked={specialChar}
-              id="specialChar"
-              onChange={() => {
-                setSpecialChar((prev) => !prev);
-              }}
-            />
+            <label className="text-sm sm:text-base whitespace-nowrap">
+              Length: {length}
+            </label>
+          </div>
+          {/* Checkboxes grouped together on small screens */}
+          <div className="flex flex-row gap-4 items-center justify-center sm:flex-row uppercase">
+            <div className="flex flex-row items-center gap-1">
+              <label htmlFor="inputNumber" className="text-xs sm:text-sm">
+                Numbers
+              </label>
+              <input
+                type="checkbox"
+                checked={numberAllowed}
+                id="inputNumber"
+                onChange={() => {
+                  setNumberAllowed((prev) => !prev);
+                }}
+              />
+            </div>
+            <div className="flex flex-row items-center gap-1">
+              <label htmlFor="specialChar" className="text-xs sm:text-sm">
+                Special Character
+              </label>
+              <input
+                type="checkbox"
+                checked={specialChar}
+                id="specialChar"
+                onChange={() => {
+                  setSpecialChar((prev) => !prev);
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
+  
 }
 
 export default App;
