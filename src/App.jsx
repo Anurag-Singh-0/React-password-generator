@@ -36,7 +36,6 @@ function App() {
     generatePassword();
   }, [length, numberAllowed, specialChar, generatePassword]);
 
-
   return (
     <div className="min-h-screen bg-[cornflowerblue] flex flex-col pt-8">
       <h1 className="text-3xl sm:text-5xl text-center font-semibold uppercase mt-8 sm:mt-10 text-white">
@@ -113,7 +112,8 @@ function App() {
       </div>
     </div>
   );
-  
+
 }
 
 export default App;
+
